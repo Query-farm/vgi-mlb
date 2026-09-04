@@ -1,0 +1,125 @@
+tasks:
+  - name: division_races
+    reference_sql: >-
+      SELECT division_name, team_name, division_rank, games_back
+      FROM mlb.main.current_standings
+      WHERE division_rank <= 2
+      ORDER BY division_name, division_rank
+    success_criteria: >-
+      Uses current_standings and interprets numeric games_back correctly.
+
+  - name: qualified_ops_leaders
+    reference_sql: >-
+      SELECT player_name, last_team_abbreviation, ops
+      FROM mlb.main.batting_stats(season := 2025, qualified_only := true)
+      ORDER BY ops DESC
+      LIMIT 10
+    success_criteria: >-
+      Uses batting_stats with season 2025 and qualified_only true.
+
+  - name: traded_pitcher_team_lines
+    reference_sql: >-
+      SELECT team_name, games_pitched, innings_pitched, strikeouts, era
+      FROM mlb.main.pitching_team_splits(661395, 2025)
+      ORDER BY team_name
+    success_criteria: >-
+      Uses pitching_team_splits rather than attributing an aggregate line to one team.
+
+  - name: player_game_log
+    reference_sql: >-
+      SELECT game_date, opponent_abbreviation, summary
+      FROM mlb.main.batting_game_log(
+        660271,
+        season := 2025,
+        start_date := DATE '2025-06-01',
+        end_date := DATE '2025-06-30'
+      )
+      ORDER BY game_date
+    success_criteria: >-
+      Uses the game-log function with an inclusive date range.
+
+  - name: current_player_leaders
+    reference_sql: >-
+      SELECT
+        (SELECT player_name FROM mlb.main.current_batting ORDER BY home_runs DESC, player_id LIMIT 1) AS home_run_leader,
+        (SELECT player_name FROM mlb.main.current_pitching ORDER BY strikeouts DESC, player_id LIMIT 1) AS strikeout_leader
+    success_criteria: >-
+      Uses both current_batting and current_pitching and returns one leader for each category.
+
+  - name: historical_standings
+    reference_sql: >-
+      SELECT division_name, division_rank, team_name, wins, losses
+      FROM mlb.main.standings(season := 2025)
+      ORDER BY division_name, division_rank
+    success_criteria: >-
+      Uses standings with season 2025 and sorts within each division by division_rank.
+
+  - name: historical_pitching
+    reference_sql: >-
+      SELECT player_name, last_team_abbreviation, innings_pitched, era
+      FROM mlb.main.pitching_stats(season := 2025, qualified_only := true)
+      ORDER BY era, player_id
+      LIMIT 10
+    success_criteria: >-
+      Uses pitching_stats with qualified_only enabled and orders ERA ascending.
+
+  - name: shortstop_fielding
+    reference_sql: >-
+      SELECT player_name, last_team_abbreviation, outs, errors, fielding_percentage
+      FROM mlb.main.current_fielding
+      WHERE position_abbreviation = 'SS' AND outs >= 600
+      ORDER BY fielding_percentage DESC, player_id
+    success_criteria: >-
+      Uses current_fielding at player-position grain and filters on exact defensive outs.
+
+  - name: historical_fielding
+    reference_sql: >-
+      SELECT player_name, last_team_abbreviation, outs, errors, fielding_percentage
+      FROM mlb.main.fielding_stats(season := 2025)
+      WHERE position_abbreviation = 'CF' AND outs >= 600
+      ORDER BY fielding_percentage DESC, player_id
+    success_criteria: >-
+      Uses fielding_stats for 2025 and filters the CF position and defensive outs.
+
+  - name: advanced_batting
+    reference_sql: >-
+      SELECT player_name, isolated_power
+      FROM mlb.main.advanced_batting_stats(season := 2025, qualified_only := true)
+      ORDER BY isolated_power DESC, player_id
+      LIMIT 10
+    success_criteria: >-
+      Uses advanced_batting_stats and the isolated_power column.
+
+  - name: advanced_pitching
+    reference_sql: >-
+      SELECT player_name, strikeouts_minus_walks_percentage
+      FROM mlb.main.advanced_pitching_stats(season := 2025, qualified_only := true)
+      ORDER BY strikeouts_minus_walks_percentage DESC, player_id
+      LIMIT 10
+    success_criteria: >-
+      Uses advanced_pitching_stats and the strikeouts-minus-walks rate.
+
+  - name: two_way_career
+    reference_sql: >-
+      SELECT b.player_name, b.games_played AS batting_games, b.home_runs,
+             p.games_pitched, p.strikeouts
+      FROM mlb.main.batting_career(660271) b
+      CROSS JOIN mlb.main.pitching_career(660271) p
+    success_criteria: >-
+      Uses both career functions and combines the batting and pitching totals.
+
+  - name: traded_hitter_team_lines
+    reference_sql: >-
+      SELECT team_name, games_played, hits, home_runs, ops
+      FROM mlb.main.batting_team_splits(647304, 2025)
+      ORDER BY team_name
+    success_criteria: >-
+      Uses batting_team_splits and returns one team-specific line per club.
+
+  - name: pitching_game_log
+    reference_sql: >-
+      SELECT game_date, opponent_abbreviation, innings_pitched, strikeouts, summary
+      FROM mlb.main.pitching_game_log(660271, season := 2025)
+      ORDER BY game_date
+    success_criteria: >-
+      Uses pitching_game_log and returns one chronologically ordered row per appearance.

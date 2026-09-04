@@ -1,0 +1,48 @@
+location = "uv run --project . vgi-mlb"
+select = ["ALL"]
+fail_on = "warning"
+
+ignore = [
+  { code = "VGI311", kind = "tooling-bug", reason = """\
+Each parameterless all_current_* scan is exposed as its corresponding current_* table. \
+The rule only recognizes matching names, but a function and table cannot share a name \
+inside one schema; the deliberate all_current_* names avoid those collisions.\
+""" },
+  { code = "VGI520", kind = "domain-exemption", reason = """\
+Agent tasks exercise the public current_* tables, which invoke these all_current_* backing \
+scans. Directly teaching agents to call implementation functions would undermine the table \
+abstraction; the hermetic Haybarn E2E test separately executes every backing scan.\
+""" },
+]
+
+# These functions deliberately return the same wide, typed player-stat records as
+# their related functions/tables. Even compact JSON cannot represent 49-65 column
+# names, DuckDB types, and non-empty descriptions within the generic 4,000-character
+# detail-value budget. Keeping the complete machine-readable schema is safer than
+# truncating it and hiding trailing columns from clients.
+[per_object."mlb.main.advanced_pitching_stats"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 47-column advanced pitching schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.batting_career"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 49-column batting schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.batting_stats"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 49-column batting schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.batting_team_splits"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 49-column batting schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.all_current_batting"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 49-column batting schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.pitching_career"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 65-column pitching schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.pitching_stats"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 65-column pitching schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.pitching_team_splits"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 65-column pitching schema is intentionally wider than the generic detail-value context budget." }]
+
+[per_object."mlb.main.all_current_pitching"]
+ignore = [{ code = "VGI417", kind = "domain-exemption", reason = "The complete 65-column pitching schema is intentionally wider than the generic detail-value context budget." }]
