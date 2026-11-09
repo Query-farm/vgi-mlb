@@ -99,7 +99,7 @@ def test_haybarn_attaches_and_queries_every_current_table() -> None:
     project = Path(__file__).resolve().parent.parent
     location = f"uv run --project {project} vgi-mlb"
     sql = (
-        f"LOAD vgi; ATTACH 'mlb' (TYPE vgi, LOCATION '{location}'); "
+        f"INSTALL vgi FROM community; LOAD vgi; ATTACH 'mlb' (TYPE vgi, LOCATION '{location}'); "
         "SELECT "
         "(SELECT count(*) FROM mlb.main.current_standings) AS standings, "
         "(SELECT count(*) FROM mlb.main.current_batting) AS batting, "
@@ -118,7 +118,7 @@ def test_haybarn_attaches_and_queries_every_current_table() -> None:
             check=True,
             capture_output=True,
             text=True,
-            timeout=30,
+            timeout=120,
         )
     finally:
         server.shutdown()
