@@ -7,7 +7,7 @@ import os
 import sys
 
 from vgi import Worker
-from vgi.catalog import Catalog, Schema, Table
+from vgi.catalog import Catalog, ConstraintInfo, Schema, Table, constraint_record
 
 from vgi_mlb.advanced_stats import ADVANCED_FUNCTIONS
 from vgi_mlb.meta import column_comments
@@ -237,6 +237,35 @@ _AGENT_TEST_TASKS = json.dumps(
     ]
 )
 
+
+def _key_constraints(table: str, key: tuple[str, ...]) -> tuple[ConstraintInfo, ...]:
+    """Primary-key and NOT NULL records for a read-only table keyed by ``key``."""
+    records = [
+        constraint_record(
+            ["main"],
+            table,
+            "pk",
+            "PRIMARY_KEY",
+            [[column] for column in key],
+            enforcement="ENFORCED",
+            validation="ALL_ROWS",
+        )
+    ]
+    records += [
+        constraint_record(
+            ["main"],
+            table,
+            f"{column}_not_null",
+            "NOT_NULL",
+            [[column]],
+            enforcement="ENFORCED",
+            validation="ALL_ROWS",
+        )
+        for column in key
+    ]
+    return tuple(records)
+
+
 MLB_CATALOG = Catalog(
     name="mlb",
     default_schema="main",
@@ -246,6 +275,7 @@ MLB_CATALOG = Catalog(
         "provider": "mlb",
         "domain": "sports",
         "vgi.title": "Major League Baseball Data",
+        "vgi.subtitle": "MLB standings and batting, pitching, and fielding statistics as SQL tables.",
         "vgi.source_url": SOURCE_URL,
         "vgi.author": "Query Farm LLC <hello@query.farm>",
         "vgi.copyright": (
@@ -282,7 +312,7 @@ MLB_CATALOG = Catalog(
     },
     schemas=[
         Schema(
-            name="main",
+            path=["main"],
             comment="Current and historical MLB standings",
             tags={
                 "provider": "mlb",
@@ -346,8 +376,7 @@ MLB_CATALOG = Catalog(
                     comment="Current AL and NL regular-season standings, one row per team",
                     tags=_CURRENT_TABLE_TAGS,
                     column_comments=column_comments(STANDINGS_SCHEMA),
-                    primary_key=(("team_id",),),
-                    not_null=("team_id",),
+                    constraints=_key_constraints("current_standings", ("team_id",)),
                     cardinality_estimate=30,
                 ),
                 Table(
@@ -356,8 +385,7 @@ MLB_CATALOG = Catalog(
                     comment="Current-season batting statistics, one row per MLB player",
                     tags=_CURRENT_BATTING_TAGS,
                     column_comments=column_comments(BATTING_SCHEMA),
-                    primary_key=(("player_id",),),
-                    not_null=("player_id",),
+                    constraints=_key_constraints("current_batting", ("player_id",)),
                     cardinality_estimate=800,
                 ),
                 Table(
@@ -366,8 +394,7 @@ MLB_CATALOG = Catalog(
                     comment="Current-season pitching statistics, one row per MLB player",
                     tags=_CURRENT_PITCHING_TAGS,
                     column_comments=column_comments(PITCHING_SCHEMA),
-                    primary_key=(("player_id",),),
-                    not_null=("player_id",),
+                    constraints=_key_constraints("current_pitching", ("player_id",)),
                     cardinality_estimate=900,
                 ),
                 Table(
@@ -376,8 +403,7 @@ MLB_CATALOG = Catalog(
                     comment="Current-season fielding statistics at player-position grain",
                     tags=_CURRENT_FIELDING_TAGS,
                     column_comments=column_comments(FIELDING_SCHEMA),
-                    primary_key=(("player_id", "position_code"),),
-                    not_null=("player_id", "position_code"),
+                    constraints=_key_constraints("current_fielding", ("player_id", "position_code")),
                     cardinality_estimate=2_700,
                 ),
             ],

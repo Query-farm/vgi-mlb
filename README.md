@@ -277,7 +277,7 @@ uv run --no-sources ruff format --check .
 uv run --no-sources pytest
 uv build
 uvx twine check dist/*
-uvx --no-sources --from vgi-lint-check==0.82.0 vgi-lint lint \
+uvx --no-sources --from vgi-lint-check==2.2.0 vgi-lint lint \
   'uv run --no-sources mlb_worker.py' \
   --no-execute --no-check-links --audit-waivers --fail-on warning
 ```

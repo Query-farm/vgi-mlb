@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- Port to VGI protocol 3.2 (vgi-python 0.50); declare table keys as canonical
+  constraint records and update vgi-lint to 2.2.0.
 - Preserve earlier player-stat pages when MLB returns an empty terminal page.
 - Reuse HTTP connections, bound concurrent upstream requests, honor
   `Retry-After`, and enforce a total query deadline.

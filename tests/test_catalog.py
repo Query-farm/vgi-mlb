@@ -10,7 +10,7 @@ from vgi_mlb.worker import MLB_CATALOG
 def test_catalog_surface() -> None:
     schema = MLB_CATALOG.schemas[0]
     assert MLB_CATALOG.name == "mlb"
-    assert schema.name == "main"
+    assert schema.path == ["main"]
     assert {function.Meta.name for function in schema.functions} == {
         "standings",
         "all_current_standings",
@@ -44,18 +44,27 @@ def test_standings_arguments_are_named_and_optional() -> None:
     assert all(not parameter.required for parameter in parameters.values())
 
 
+def _key_of(table, kind: str) -> list[tuple[str, ...]]:
+    return [
+        tuple(name for path in record.definition.column_paths for name in path)
+        for record in table.constraints
+        if record.definition.kind == kind
+    ]
+
+
 def test_table_primary_key_is_team_id() -> None:
     table = MLB_CATALOG.schemas[0].tables[0]
-    assert table.primary_key == (("team_id",),)
-    assert table.not_null == ("team_id",)
+    assert _key_of(table, "PRIMARY_KEY") == [("team_id",)]
+    assert _key_of(table, "NOT_NULL") == [("team_id",)]
 
 
 def test_player_tables_use_player_id_as_primary_key() -> None:
     for table in MLB_CATALOG.schemas[0].tables[1:3]:
-        assert table.primary_key == (("player_id",),)
-        assert table.not_null == ("player_id",)
+        assert _key_of(table, "PRIMARY_KEY") == [("player_id",)]
+        assert _key_of(table, "NOT_NULL") == [("player_id",)]
     fielding = MLB_CATALOG.schemas[0].tables[3]
-    assert fielding.primary_key == (("player_id", "position_code"),)
+    assert _key_of(fielding, "PRIMARY_KEY") == [("player_id", "position_code")]
+    assert _key_of(fielding, "NOT_NULL") == [("player_id",), ("position_code",)]
 
 
 def test_catalog_discovery_contract_is_public_and_machine_readable() -> None:
