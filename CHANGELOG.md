@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.3.1]
+
+- Stop publishing to PyPI. Releases attach the wheel and sdist to the GitHub
+  release and publish the container image; the README now runs the worker from
+  the release tag with `uvx --from git+https://github.com/Query-farm/vgi-mlb@v0.3.1`.
+- Report the real package version (`__version__` and the User-Agent said 0.2.0).
+
 ## [0.3.0]
 
 - Port to VGI protocol 3.2 (vgi-python 0.50); declare table keys as canonical

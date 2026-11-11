@@ -26,28 +26,29 @@ does not rehost or persist an MLB dataset.
 
 ## Quick start
 
-Install the released worker with `uv`:
+The worker is not published to PyPI. `uvx` runs the tagged release straight from
+GitHub and caches it after the first use:
 
 ```bash
-uv tool install vgi-mlb
-vgi-mlb
+uvx --from git+https://github.com/Query-farm/vgi-mlb@v0.3.1 vgi-mlb --help
 ```
 
 Launch Haybarn with the catalog pre-attached:
 
 ```bash
 uvx haybarn-cli \
-  -cmd "LOAD vgi; ATTACH 'mlb' (TYPE vgi, LOCATION 'vgi-mlb');" \
+  -cmd "INSTALL vgi FROM community; LOAD vgi; ATTACH 'mlb' (TYPE vgi, LOCATION 'uvx --from git+https://github.com/Query-farm/vgi-mlb@v0.3.1 vgi-mlb');" \
   :memory:
 ```
 
 Or attach it in an existing Haybarn session:
 
 ```sql
+INSTALL vgi FROM community;
 LOAD vgi;
 ATTACH 'mlb' (
   TYPE vgi,
-  LOCATION 'vgi-mlb'
+  LOCATION 'uvx --from git+https://github.com/Query-farm/vgi-mlb@v0.3.1 vgi-mlb'
 );
 ```
 
@@ -219,7 +220,7 @@ or an explicit anonymous-access decision:
 export VGI_SIGNING_KEY='a-long-random-secret-shared-by-every-replica'
 export VGI_BEARER_TOKENS='replace-with-a-random-token=haybarn'
 
-vgi-mlb-http \
+uvx --from git+https://github.com/Query-farm/vgi-mlb@v0.3.1 vgi-mlb-http \
   --host 0.0.0.0 \
   --port 8000 \
   --cors-origins 'https://sql.example.com' \
@@ -284,6 +285,9 @@ uvx --no-sources --from vgi-lint-check==2.2.0 vgi-lint lint \
 
 Live upstream smoke tests are opt-in with `uv run pytest -m live` and also run
 in a serialized scheduled workflow alongside executable VGI catalog examples.
-Publishing is release-driven: create a GitHub release named `vX.Y.Z` matching
-the version in `pyproject.toml`. CI builds, attests, validates, and publishes
-the distributions through PyPI trusted publishing.
+Publishing is driven by releases. Create a GitHub release named `vX.Y.Z` that
+matches the version in `pyproject.toml`. CI then builds, validates and attests
+the wheel and sdist, attaches them to the release, and publishes a
+multi-platform container image to `ghcr.io/query-farm/vgi-mlb`. The package is
+not published to PyPI; install it from the release tag as shown in the quick
+start.

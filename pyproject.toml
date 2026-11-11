@@ -1,6 +1,6 @@
 [project]
 name = "vgi-mlb"
-version = "0.3.0"
+version = "0.3.1"
 description = "A read-only VGI worker exposing MLB standings and player statistics to Haybarn SQL"
 readme = "README.md"
 license = "MIT"
