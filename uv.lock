@@ -2,9 +2,6 @@ version = 1
 revision = 5
 requires-python = ">=3.13"
 
-[options]
-prerelease-mode = "allow"
-
 [[package]]
 name = "annotated-doc"
 version = "0.0.5"
@@ -705,7 +702,7 @@ wheels = [
 
 [[package]]
 name = "vgi-mlb"
-version = "0.4.0"
+version = "0.4.1"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },
