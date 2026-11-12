@@ -1,3 +1,3 @@
 """MLB standings and player statistics for VGI."""
 
-__version__ = "0.3.1"
+__version__ = "0.4.0"

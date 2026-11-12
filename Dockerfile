@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM python:3.13-slim
 
-ARG VERSION=0.3.1
+ARG VERSION=0.4.0
 ARG GIT_COMMIT=unknown
 ARG SOURCE_URL=https://github.com/Query-farm/vgi-mlb
 

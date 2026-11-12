@@ -4,6 +4,14 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.4.0]
+
+- Port to VGI protocol 3.3 (vgi-python `>=0.51.0,<0.52`). The vgi extension
+  matches the protocol's major and minor version exactly, so the current
+  extension refuses 3.2 workers; the SQL surface is unchanged (the current_*
+  table scans are also schema functions, so they stay callable).
+- The README lints with vgi-lint-check 2.5.0 and runs the worker from `@v0.4.0`.
+
 ## [0.3.1]
 
 - Stop publishing to PyPI. Releases attach the wheel and sdist to the GitHub
