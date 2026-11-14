@@ -311,3 +311,7 @@ the wheel and sdist, attaches them to the release, and publishes a
 multi-platform container image to `ghcr.io/query-farm/vgi-mlb`. The package is
 not published to PyPI; install it from the release tag as shown in the quick
 start.
+
+## Executed notebook
+
+[Count outs correctly and compare workload-sensitive pitching rates](notebooks/README.md).

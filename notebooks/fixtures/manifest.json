@@ -1,0 +1,24 @@
+{
+  "source": "MLB public Stats API",
+  "kind": "complete unmodified public response bodies",
+  "season": 2025,
+  "game_type": "R",
+  "player_pool": "ALL",
+  "capture_started_utc": "2026-11-14T08:19:55.257927+00:00",
+  "capture_finished_utc": "2026-11-14T08:19:55.942457+00:00",
+  "entries": [
+    {
+      "filename": "pitching-page-0.json",
+      "request_path": "/api/v1/stats?stats=season&group=pitching&playerPool=ALL&sportIds=1&hydrate=person%2Cteam&limit=1000&gameType=R&season=2025&offset=0",
+      "url": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=pitching&playerPool=ALL&sportIds=1&hydrate=person%2Cteam&limit=1000&gameType=R&season=2025&offset=0",
+      "status": 200,
+      "retrieved_at_utc": "2026-11-14T08:19:55.942457+00:00",
+      "sha256": "d27f820c7446a4f95877bf8b593def131981796684650528494a957311e335a0",
+      "bytes": 2687589,
+      "rows": 873,
+      "total_splits": 873,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    }
+  ],
+  "total_splits": 873
+}
