@@ -20,6 +20,7 @@ from vgi.table_function import (
 from vgi_rpc.rpc import OutputCollector
 
 from vgi_mlb import api
+from vgi_mlb.composed import DIVISION_WINNER_ACES
 from vgi_mlb.meta import result_columns_schema
 from vgi_mlb.schemas import STANDINGS_SCHEMA, batch_from_records
 
@@ -154,6 +155,7 @@ class StandingsFunction(TableFunctionGenerator[StandingsArgs]):
                             "standings_type := 'wildCard') ORDER BY wild_card_rank"
                         ),
                     },
+                    DIVISION_WINNER_ACES.query(),
                 ]
             ),
         }
@@ -165,7 +167,8 @@ class StandingsFunction(TableFunctionGenerator[StandingsArgs]):
                     "ORDER BY division_name, division_rank"
                 ),
                 description="The 2025 final division standings",
-            )
+            ),
+            DIVISION_WINNER_ACES.function_example(),
         ]
 
     @classmethod

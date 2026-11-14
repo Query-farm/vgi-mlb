@@ -20,6 +20,7 @@ from vgi.table_function import (
 from vgi_rpc.rpc import OutputCollector
 
 from vgi_mlb import api
+from vgi_mlb.composed import GAME_LOG_VS_OPPONENT_RECORD, ComposedExample
 from vgi_mlb.meta import result_columns_schema
 from vgi_mlb.player_schemas import (
     BATTING_GAME_LOG_SCHEMA,
@@ -150,7 +151,15 @@ def _emit_game_log(
     out.finish()
 
 
-def _tags(*, title: str, llm: str, schema: pa.Schema, example: str, description: str) -> dict[str, str]:
+def _tags(
+    *,
+    title: str,
+    llm: str,
+    schema: pa.Schema,
+    example: str,
+    description: str,
+    composed: tuple[ComposedExample, ...] = (),
+) -> dict[str, str]:
     return {
         "provider": "mlb",
         "vgi.category": "player-detail",
@@ -158,7 +167,9 @@ def _tags(*, title: str, llm: str, schema: pa.Schema, example: str, description:
         "vgi.result_columns_schema": result_columns_schema(schema),
         "vgi.doc_llm": llm,
         "vgi.doc_md": llm,
-        "vgi.example_queries": json.dumps([{"description": description, "sql": example}]),
+        "vgi.example_queries": json.dumps(
+            [{"description": description, "sql": example}, *(item.query() for item in composed)]
+        ),
     }
 
 
@@ -353,8 +364,12 @@ class BattingGameLogFunction(_GameLogBase, TableFunctionGenerator[GameLogArgs]):
             schema=BATTING_GAME_LOG_SCHEMA,
             example=_BATTING_LOG_SQL,
             description="Shohei Ohtani's June 2025 batting game log.",
+            composed=(GAME_LOG_VS_OPPONENT_RECORD,),
         )
-        examples = [FunctionExample(sql=_BATTING_LOG_SQL, description="Player batting log by date")]
+        examples = [
+            FunctionExample(sql=_BATTING_LOG_SQL, description="Player batting log by date"),
+            GAME_LOG_VS_OPPONENT_RECORD.function_example(),
+        ]
 
 
 @init_single_worker

@@ -10,6 +10,7 @@ from vgi import Worker
 from vgi.catalog import Catalog, ConstraintInfo, Schema, Table, constraint_record
 
 from vgi_mlb.advanced_stats import ADVANCED_FUNCTIONS
+from vgi_mlb.composed import COMPOSED_EXAMPLES
 from vgi_mlb.meta import column_comments
 from vgi_mlb.player_detail import DETAIL_FUNCTIONS
 from vgi_mlb.player_schemas import BATTING_SCHEMA, FIELDING_SCHEMA, PITCHING_SCHEMA
@@ -97,7 +98,7 @@ _CURRENT_PITCHING_TAGS = {
     "vgi.example_queries": json.dumps(
         [
             {
-                "description": "Current qualified ERA leaders with at least 300 outs.",
+                "description": "Current ERA leaders among pitchers with at least 300 outs.",
                 "sql": (
                     "SELECT player_name, last_team_abbreviation, innings_pitched, strikeouts, era "
                     "FROM mlb.main.current_pitching WHERE outs >= 300 ORDER BY era LIMIT 20"
@@ -234,6 +235,23 @@ _AGENT_TEST_TASKS = json.dumps(
                 "List Shohei Ohtani's 2025 pitching appearances with opponent, innings, and strikeouts."
             ),
         },
+        {
+            "name": "division_winner_home_run_leaders",
+            "prompt": (
+                "For each 2025 MLB division winner, which qualified hitter on that club hit the most "
+                "home runs? Return columns team_name, player_name, home_runs: one row per division "
+                "winner, ordered by team_name."
+            ),
+        },
+        {
+            "name": "pitching_vs_winning_teams",
+            "prompt": (
+                "In 2025, how many of Shohei Ohtani's pitching appearances (MLB player ID 660271) came "
+                "against opponents that finished the 2025 regular season with more wins than losses, "
+                "and how many strikeouts did he record in those games? Return one row with columns "
+                "appearances, strikeouts."
+            ),
+        },
     ]
 )
 
@@ -366,7 +384,12 @@ MLB_CATALOG = Catalog(
                     "for historical seasons, alternate game types, career totals, advanced metrics, "
                     "team attribution, and date-bounded game logs."
                 ),
-                "vgi.example_queries": _CURRENT_TABLE_TAGS["vgi.example_queries"],
+                "vgi.example_queries": json.dumps(
+                    [
+                        *json.loads(_CURRENT_TABLE_TAGS["vgi.example_queries"]),
+                        *(example.query() for example in COMPOSED_EXAMPLES),
+                    ]
+                ),
             },
             functions=[*FUNCTIONS, *PLAYER_FUNCTIONS, *ADVANCED_FUNCTIONS, *DETAIL_FUNCTIONS],
             tables=[

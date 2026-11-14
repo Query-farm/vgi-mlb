@@ -123,3 +123,26 @@ tasks:
       ORDER BY game_date
     success_criteria: >-
       Uses pitching_game_log and returns one chronologically ordered row per appearance.
+
+  - name: division_winner_home_run_leaders
+    reference_sql: >-
+      SELECT s.team_name, b.player_name, b.home_runs
+      FROM mlb.main.standings(season := 2025) s
+      JOIN mlb.main.batting_stats(season := 2025, qualified_only := true) b
+        ON b.team_id = s.team_id
+      WHERE s.division_rank = 1
+      QUALIFY rank() OVER (PARTITION BY s.team_id ORDER BY b.home_runs DESC) = 1
+      ORDER BY s.team_name
+    success_criteria: >-
+      Joins final 2025 standings to qualified 2025 batting lines and returns each
+      division winner's single home-run leader.
+
+  - name: pitching_vs_winning_teams
+    reference_sql: >-
+      SELECT count(*) AS appearances, sum(g.strikeouts) AS strikeouts
+      FROM mlb.main.pitching_game_log(660271, season := 2025) g
+      JOIN mlb.main.standings(season := 2025) s ON s.team_id = g.opponent_id
+      WHERE s.wins > s.losses
+    success_criteria: >-
+      Joins the 2025 pitching game log to final 2025 standings on the opponent and
+      counts appearances and strikeouts against winning-record clubs (6 and 22).

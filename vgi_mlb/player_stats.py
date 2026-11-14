@@ -20,6 +20,7 @@ from vgi.table_function import (
 from vgi_rpc.rpc import OutputCollector
 
 from vgi_mlb import api
+from vgi_mlb.composed import POSITION_PLAYERS_WHO_PITCHED, SHORTSTOP_BAT_AND_GLOVE
 from vgi_mlb.meta import result_columns_schema
 from vgi_mlb.player_schemas import (
     BATTING_SCHEMA,
@@ -236,7 +237,8 @@ class PitchingStatsFunction(TableFunctionGenerator[PlayerStatsArgs]):
                             "FROM mlb.main.pitching_stats(season := 2025, qualified_only := true) "
                             "ORDER BY era LIMIT 20"
                         ),
-                    }
+                    },
+                    POSITION_PLAYERS_WHO_PITCHED.query(),
                 ]
             ),
         }
@@ -248,7 +250,8 @@ class PitchingStatsFunction(TableFunctionGenerator[PlayerStatsArgs]):
                     "ORDER BY era LIMIT 20"
                 ),
                 description="Qualified 2025 pitchers ordered by ERA",
-            )
+            ),
+            POSITION_PLAYERS_WHO_PITCHED.function_example(),
         ]
 
     @classmethod
@@ -368,7 +371,8 @@ class FieldingStatsFunction(TableFunctionGenerator[FieldingStatsArgs]):
                             "WHERE position_abbreviation = 'SS' AND outs >= 900 "
                             "ORDER BY fielding_percentage DESC"
                         ),
-                    }
+                    },
+                    SHORTSTOP_BAT_AND_GLOVE.query(),
                 ]
             ),
         }
@@ -381,7 +385,8 @@ class FieldingStatsFunction(TableFunctionGenerator[FieldingStatsArgs]):
                     "ORDER BY fielding_percentage DESC"
                 ),
                 description="2025 shortstops with substantial defensive playing time",
-            )
+            ),
+            SHORTSTOP_BAT_AND_GLOVE.function_example(),
         ]
 
     @classmethod

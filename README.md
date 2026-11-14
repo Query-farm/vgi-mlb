@@ -209,6 +209,26 @@ ORDER BY game_date;
 
 The pitching equivalent is `pitching_game_log()`.
 
+#### Combining functions
+
+Every row carries stable `team_id`, `player_id`, and `opponent_id` keys, so the
+functions join naturally. For example, each 2025 division winner's lowest-ERA
+qualified pitcher:
+
+```sql
+SELECT s.division_name, s.team_name, s.wins, p.player_name,
+       p.innings_pitched, p.strikeouts, p.era
+FROM mlb.main.standings(season := 2025) s
+JOIN mlb.main.pitching_stats(season := 2025, qualified_only := true) p
+  ON p.team_id = s.team_id
+WHERE s.division_rank = 1
+QUALIFY row_number() OVER (PARTITION BY s.team_id ORDER BY p.era, p.player_id) = 1
+ORDER BY s.division_name;
+```
+
+Pitchers traded mid-season have a `NULL` `team_id`, so they never match a club
+here; see [Correct team attribution](#correct-team-attribution).
+
 ## Production HTTP deployment
 
 Stdio is the recommended transport when Haybarn can launch the worker locally.

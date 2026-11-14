@@ -1,7 +1,16 @@
 """Tests for the SQL-facing catalog shape."""
 
 import json
+import re
+from pathlib import Path
 
+from vgi_mlb.composed import (
+    COMPOSED_EXAMPLES,
+    DIVISION_WINNER_ACES,
+    GAME_LOG_VS_OPPONENT_RECORD,
+    POSITION_PLAYERS_WHO_PITCHED,
+    SHORTSTOP_BAT_AND_GLOVE,
+)
 from vgi_mlb.player_stats import CurrentBattingFunction, CurrentFieldingFunction, CurrentPitchingFunction
 from vgi_mlb.standings import CurrentStandingsFunction, StandingsFunction
 from vgi_mlb.worker import MLB_CATALOG
@@ -76,3 +85,28 @@ def test_catalog_discovery_contract_is_public_and_machine_readable() -> None:
     assert tasks
     assert all(set(task) == {"name", "prompt"} for task in tasks)
     assert len({task["name"] for task in tasks}) == len(tasks)
+
+
+def test_composed_examples_are_listed_on_schema_and_driving_function() -> None:
+    schema = MLB_CATALOG.schemas[0]
+    schema_examples = json.loads(schema.tags["vgi.example_queries"])
+    for example in COMPOSED_EXAMPLES:
+        assert example.query() in schema_examples
+        assert example.sql.count("mlb.main.") >= 2
+
+    functions = {function.Meta.name: function for function in schema.functions}
+    drivers = {
+        "standings": DIVISION_WINNER_ACES,
+        "pitching_stats": POSITION_PLAYERS_WHO_PITCHED,
+        "fielding_stats": SHORTSTOP_BAT_AND_GLOVE,
+        "batting_game_log": GAME_LOG_VS_OPPONENT_RECORD,
+    }
+    for name, example in drivers.items():
+        meta = functions[name].Meta
+        assert example.query() in json.loads(meta.tags["vgi.example_queries"])[:5]
+        assert example.sql in [item.sql for item in meta.examples[:5]]
+
+    graders = (Path(__file__).parents[1] / "vgi-agent-tests.yaml").read_text()
+    graded = set(re.findall(r"^  - name: (\S+)$", graders, flags=re.MULTILINE))
+    public = {task["name"] for task in json.loads(MLB_CATALOG.tags["vgi.agent_test_tasks"])}
+    assert public == graded
