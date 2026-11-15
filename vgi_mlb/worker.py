@@ -325,7 +325,16 @@ MLB_CATALOG = Catalog(
             "leagues, game types, qualified pools, or individual players. Multi-team season totals "
             "never claim to belong to one club: use the team-split functions when attribution matters.\n\n"
             "All access is read-only and requires no credential. Rate statistics are exact decimals; "
-            "baseball innings remain display strings alongside exact integer outs."
+            "baseball innings remain display strings alongside exact integer outs.\n\n"
+            "## Sources and references\n\n"
+            "* [MLB Stats API](https://statsapi.mlb.com/): the keyless MLB Advanced Media API every "
+            "function calls.\n"
+            "* [MLB.com Stats](https://www.mlb.com/stats): the official leaderboards the qualified pools "
+            "mirror.\n"
+            "* [MLB data copyright notice](https://gdx.mlb.com/components/copyright.txt): the terms that "
+            "apply to Stats API data.\n"
+            "* [MLB-StatsAPI wiki](https://github.com/toddrob99/MLB-StatsAPI/wiki): a community reference "
+            "for the Stats API's endpoints and parameters."
         ),
     },
     schemas=[

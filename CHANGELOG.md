@@ -4,6 +4,12 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.4.2]
+
+- Docs link to the MLB Stats API, MLB.com Stats and MLB's data copyright notice:
+  the catalog's documentation gains a Sources and references section (vgi-lint
+  VGI183).
+
 ## [0.4.0]
 
 - Port to VGI protocol 3.3 (vgi-python `>=0.51.0,<0.52`). The vgi extension
