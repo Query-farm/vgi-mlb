@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+  "catalog_sha256": "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+  "worker_revision": "64cf449971b10b221f1730b6c6b16c2a0e045f2e",
+  "status": "success",
+  "executed_at": "2026-11-15T01:40:57.546500+00:00",
+  "engine": "Haybarn 2.0.0rc11/community VGI; isolated Python 3.13 MLB v0.4.1; shared v0.3.51",
+  "command": "uv run --frozen vgi-notebooks 03_keep_player_team_and_career_scopes_separate.ipynb --timeout 600",
+  "catalog_aliases": [
+    "mlb"
+  ],
+  "cells": [
+    {
+      "id": "parameters",
+      "status": "success",
+      "execution_count": 1,
+      "source_sha256": "241902dc7fe76d08945e42571354d66ce8c6cf071583821bad9dd05e0da86cca",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "bootstrap",
+      "status": "success",
+      "execution_count": 2,
+      "source_sha256": "98ff39f6b08686a19a868b2f8b7ebfb4c315d561be608aee5e74b5666a3c953f",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "setup",
+      "status": "success",
+      "execution_count": 3,
+      "source_sha256": "39c0e2e67ffb6f715b22048b48b6b70969da5f35654ff892dd902a9346f5d6f5",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "attach",
+      "status": "success",
+      "execution_count": 4,
+      "source_sha256": "83c2076f20825bf64785cc90fcd7e49776772e7c1ec7dd8b0b2734aa6826628e",
+      "outputs_sha256": "c17c19a5c176854762c97c96bafef62f247262c382ecc6533cf998819c105960"
+    },
+    {
+      "id": "fetch-sql",
+      "status": "success",
+      "execution_count": 5,
+      "source_sha256": "54e6171ea95983a64de9a6a66d4eec3676f30e5d72b2c91b3a1c94ce44541328",
+      "outputs_sha256": "23c8940505861b0952ea3eeab2c75a52fa17ba150448cdb4800ec9653ee5050b"
+    },
+    {
+      "id": "career-sql",
+      "status": "success",
+      "execution_count": 6,
+      "source_sha256": "05ada1ed1937be7fec18d56d6f0838dfc80449b36ee35c45218cd8a9217dab23",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "career-result",
+      "status": "success",
+      "execution_count": 7,
+      "source_sha256": "9d60351501788300cee49520285a8364ce23672bd1949770fe3df616734ac7bf",
+      "outputs_sha256": "4604d0e0a2f1b1e7706bd300d2adb3323543ce3bcbb96502f356ae65af3ec338"
+    },
+    {
+      "id": "reconcile-sql",
+      "status": "success",
+      "execution_count": 8,
+      "source_sha256": "3af69af6290853954762ed705c9517ec318faade66fb16409041060f87850313",
+      "outputs_sha256": "3aebf501f17c9480cd5b863e4e9f29e97ebdc9441bc67ae88e0185a4d9cea8ae"
+    },
+    {
+      "id": "exposure-sql",
+      "status": "success",
+      "execution_count": 9,
+      "source_sha256": "9b07edc4aeed71a001f6de573d61a52ede755ad556d04cca00127bf775c5ce53",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "exposure-plot",
+      "status": "success",
+      "execution_count": 10,
+      "source_sha256": "e1aa73667ae3b6908371c3fdbeb809b124569222871afe14c1db78679a688788",
+      "outputs_sha256": "07d8fd068bd27c8cb1366f29683bf86cf7c12e7a585fd84cde43eea61f27254b"
+    },
+    {
+      "id": "rates-sql",
+      "status": "success",
+      "execution_count": 11,
+      "source_sha256": "718912af2126b8e38f22d870b2e6190807a5eea5e0f665cb2504d1b0ee09675d",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "rate-plot",
+      "status": "success",
+      "execution_count": 12,
+      "source_sha256": "4b1fdc868929d232592fdc2b33c51d38f7b1b90a98e892aa73abcffa5bf2f896",
+      "outputs_sha256": "f560c741e09f7fa8fa6ddc69a228a7393f0cb9e19a109fdbc8b8732b7860f8dc"
+    },
+    {
+      "id": "checks-sql",
+      "status": "success",
+      "execution_count": 13,
+      "source_sha256": "859fc62c7adb38b20ff4df4c27931a0d90d9412622b3c7c1c73904c20aeb86e2",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "validation-result",
+      "status": "success",
+      "execution_count": 14,
+      "source_sha256": "a4d6c088ec853bbbb1326f7a6f265f72dd80d55ba3beca82fb98e6e73f3d8321",
+      "outputs_sha256": "2ea7eccdeb0b473c7e1c0cdcb28b8a72d23bf87042c01847aed1a2fb84439b3f"
+    },
+    {
+      "id": "cleanup",
+      "status": "success",
+      "execution_count": 15,
+      "source_sha256": "0bf8ca21bff397dab13f7ad55891bec878a67cbd2cf547fa64952761bd499fb2",
+      "outputs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  ]
+}

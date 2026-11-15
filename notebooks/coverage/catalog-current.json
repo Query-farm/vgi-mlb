@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "repository": "Query-farm/vgi-mlb",
+  "revision": "db4a4d894c1ca21f8d676b1a559e853f4abd0d75",
+  "captured_at": "2026-11-15T01:27:53.191306+00:00",
+  "default_schema": "main",
+  "scope": "all_public_functions_and_tables",
+  "complete": true,
+  "evidence": [
+    {
+      "path": "coverage/current-functions.json",
+      "sha256": "42ca8e3c5b1bac4b2f9ab776528fcd7c774482e7a91020e89be47adef8e136ef",
+      "description": "Complete worker-filtered functions export through actual published Haybarn"
+    },
+    {
+      "path": "coverage/current-tables.json",
+      "sha256": "521adcec1807ac09151837ee38086dc5ce9d6976c1aa8b1826837c8294f8803f",
+      "description": "Complete worker-filtered tables export through actual published Haybarn"
+    },
+    {
+      "path": "coverage/current-views.json",
+      "sha256": "edcac9122192bb9fb0bda26b02cfabf830c0bd260b0ff06344621fe90ee7fdd7",
+      "description": "Complete worker-filtered views export through actual published Haybarn"
+    }
+  ],
+  "objects": [
+    {
+      "schema": "main",
+      "name": "advanced_batting_stats",
+      "kind": "function",
+      "signatures": [
+        "advanced_batting_stats(INTEGER, BOOLEAN, VARCHAR, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "advanced_pitching_stats",
+      "kind": "function",
+      "signatures": [
+        "advanced_pitching_stats(INTEGER, BOOLEAN, VARCHAR, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "all_current_batting",
+      "kind": "function",
+      "signatures": [
+        "all_current_batting()"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "all_current_fielding",
+      "kind": "function",
+      "signatures": [
+        "all_current_fielding()"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "all_current_pitching",
+      "kind": "function",
+      "signatures": [
+        "all_current_pitching()"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "all_current_standings",
+      "kind": "function",
+      "signatures": [
+        "all_current_standings()"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "batting_career",
+      "kind": "function",
+      "signatures": [
+        "batting_career(INTEGER, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "batting_game_log",
+      "kind": "function",
+      "signatures": [
+        "batting_game_log(INTEGER, DATE, INTEGER, VARCHAR, DATE)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "batting_stats",
+      "kind": "function",
+      "signatures": [
+        "batting_stats(INTEGER, BOOLEAN, VARCHAR, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "batting_team_splits",
+      "kind": "function",
+      "signatures": [
+        "batting_team_splits(INTEGER, INTEGER, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "fielding_stats",
+      "kind": "function",
+      "signatures": [
+        "fielding_stats(INTEGER, VARCHAR, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "pitching_career",
+      "kind": "function",
+      "signatures": [
+        "pitching_career(INTEGER, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "pitching_game_log",
+      "kind": "function",
+      "signatures": [
+        "pitching_game_log(INTEGER, DATE, INTEGER, VARCHAR, DATE)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "pitching_stats",
+      "kind": "function",
+      "signatures": [
+        "pitching_stats(INTEGER, BOOLEAN, VARCHAR, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "pitching_team_splits",
+      "kind": "function",
+      "signatures": [
+        "pitching_team_splits(INTEGER, INTEGER, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "standings",
+      "kind": "function",
+      "signatures": [
+        "standings(INTEGER, VARCHAR, VARCHAR)"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "current_batting",
+      "kind": "table",
+      "signatures": [
+        "TABLE"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "current_fielding",
+      "kind": "table",
+      "signatures": [
+        "TABLE"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "current_pitching",
+      "kind": "table",
+      "signatures": [
+        "TABLE"
+      ],
+      "authentication": "none",
+      "access": "read"
+    },
+    {
+      "schema": "main",
+      "name": "current_standings",
+      "kind": "table",
+      "signatures": [
+        "TABLE"
+      ],
+      "authentication": "none",
+      "access": "read"
+    }
+  ]
+}

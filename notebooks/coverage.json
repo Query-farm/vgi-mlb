@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "catalogs": {
+    "released": {
+      "path": "coverage/catalog-released.json",
+      "sha256": "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "catalog_sha256": "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+        "notes": "Complete actual functions/tables/views exports reconcile to 20 distinct (schema,name) surfaces. Same-named aliases merge; separately named all_current_* backing scans remain included. No access or authentication exclusions. Analytical runs use this released worker."
+      }
+    },
+    "current": {
+      "path": "coverage/catalog-current.json",
+      "sha256": "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe",
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "catalog_sha256": "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe",
+        "notes": "Complete actual functions/tables/views exports reconcile to 20 distinct (schema,name) surfaces. Same-named aliases merge; separately named all_current_* backing scans remain included. No access or authentication exclusions. Current public catalog collected through remote SHA db4a4d8. Source differences since release concern metadata, composed examples and tests; the analytical notebook execution uses release v0.4.1, so current correspondence is not exact-current execution."
+      }
+    }
+  },
+  "notebooks": [
+    {
+      "path": "01_outs_before_rates_before_rankings.ipynb",
+      "sha256": "704adc4dc2d65c3bfdc4c49ac22c86ac1fba58aeb8d0c14260fa71eae99ddec8",
+      "execution": {
+        "path": "coverage/run-01.json",
+        "sha256": "77b14753ad9b60e4667190bf96d21c1e8540e52cb7da7e6676d8e3d133502c3d"
+      }
+    },
+    {
+      "path": "02_separate_hits_from_extra_bases.ipynb",
+      "sha256": "f6e3b0de3ce3ede81faeb294c33f5891834494b0a0daedd6285fc7e9ebbb065c",
+      "execution": {
+        "path": "coverage/run-02.json",
+        "sha256": "710b1209ef858c78daad890cde7d4e05821d6f855e7d9ceabcdc29f47fa7bf9d"
+      }
+    },
+    {
+      "path": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+      "execution": {
+        "path": "coverage/run-03.json",
+        "sha256": "c57d798b8f7a3a265ad3ffc24208f6b7cfeaf1dfb1ed411f0ab7f9b5b80a496c"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "object": {
+        "schema": "main",
+        "name": "pitching_stats"
+      },
+      "notebook": "01_outs_before_rates_before_rankings.ipynb",
+      "sql": [
+        {
+          "cell": "2551776f",
+          "reference": "mlb.main.pitching_stats"
+        }
+      ],
+      "narrative_cells": [
+        "d262ae09"
+      ],
+      "result_cells": [
+        "2773ed85"
+      ],
+      "interpretation_cells": [
+        "2773ed85"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "704adc4dc2d65c3bfdc4c49ac22c86ac1fba58aeb8d0c14260fa71eae99ddec8",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Reconstruct earned-run rates from integer outs before changing a custom workload pool.",
+        "finding": "873 complete player-season rows retain raw outs/earned runs and multi-team non-attribution. Decimal-innings errors are measured explicitly; 150\u2192450 outs changes selection without altering rates."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "advanced_pitching_stats"
+      },
+      "notebook": "01_outs_before_rates_before_rankings.ipynb",
+      "sql": [
+        {
+          "cell": "2551776f",
+          "reference": "mlb.main.advanced_pitching_stats"
+        }
+      ],
+      "narrative_cells": [
+        "advanced-question"
+      ],
+      "result_cells": [
+        "2773ed85"
+      ],
+      "interpretation_cells": [
+        "2773ed85"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "704adc4dc2d65c3bfdc4c49ac22c86ac1fba58aeb8d0c14260fa71eae99ddec8",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Check a second exposure and display its rate for the same selected players.",
+        "finding": "873 advanced rows join one-to-one on player/season/game type. Batters faced agree with the basic report; (strikeouts\u2212walks)/batters faced reconciles to reported fraction within rounding. The chart separately labels percent and earned runs per nine, without using one as a substitute for the other."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "batting_stats"
+      },
+      "notebook": "02_separate_hits_from_extra_bases.ipynb",
+      "sql": [
+        {
+          "cell": "source-sql",
+          "reference": "mlb.main.batting_stats"
+        }
+      ],
+      "narrative_cells": [
+        "source-question"
+      ],
+      "result_cells": [
+        "decomposition-plot"
+      ],
+      "interpretation_cells": [
+        "decomposition-plot"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "f6e3b0de3ce3ede81faeb294c33f5891834494b0a0daedd6285fc7e9ebbb065c",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Decompose slugging into first bases and extra bases before ranking hitters.",
+        "finding": "765 complete hitter-season records provide hits, at-bats and hit types. SQL checks total-base arithmetic; stacked components preserve the common at-bat denominator and do not claim OPS or club attribution."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "advanced_batting_stats"
+      },
+      "notebook": "02_separate_hits_from_extra_bases.ipynb",
+      "sql": [
+        {
+          "cell": "source-sql",
+          "reference": "mlb.main.advanced_batting_stats"
+        }
+      ],
+      "narrative_cells": [
+        "arithmetic-question"
+      ],
+      "result_cells": [
+        "decomposition-plot"
+      ],
+      "interpretation_cells": [
+        "population-plot"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "f6e3b0de3ce3ede81faeb294c33f5891834494b0a0daedd6285fc7e9ebbb065c",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Validate reported isolated power and show how workload selection affects its comparison pool.",
+        "finding": "765 advanced records reconcile plate appearances, total bases, extra-base counts and ISO against basic counts. A 250\u2192500 PA threshold changes population membership and displayed leaders while every reconstructed coordinate stays fixed."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "batting_career"
+      },
+      "notebook": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sql": [
+        {
+          "cell": "fetch-sql",
+          "reference": "mlb.main.batting_career"
+        }
+      ],
+      "narrative_cells": [
+        "source-question"
+      ],
+      "result_cells": [
+        "career-result"
+      ],
+      "interpretation_cells": [
+        "career-result"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Distinguish acquisition-time career exposure from a selected historical season.",
+        "finding": "Naylor: 853 career hits / 3,187 at-bats versus 160 / 543 in 2025. Returned career rows have no season/team attribution. Career rates and the selected season\u2019s fraction of career exposure are calculated and interpreted, then retained as separately labeled chart reference lines."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "pitching_career"
+      },
+      "notebook": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sql": [
+        {
+          "cell": "fetch-sql",
+          "reference": "mlb.main.pitching_career"
+        }
+      ],
+      "narrative_cells": [
+        "source-question"
+      ],
+      "result_cells": [
+        "career-result"
+      ],
+      "interpretation_cells": [
+        "career-result"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Distinguish acquisition-time career exposure from a selected historical season.",
+        "finding": "Duran: 81 career earned runs / 941 outs versus 16 / 210 in 2025. Returned career rows have no season/team attribution. Career rates and the selected season\u2019s fraction of career exposure are calculated and interpreted, then retained as separately labeled chart reference lines."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "batting_team_splits"
+      },
+      "notebook": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sql": [
+        {
+          "cell": "fetch-sql",
+          "reference": "mlb.main.batting_team_splits"
+        }
+      ],
+      "narrative_cells": [
+        "scope-question"
+      ],
+      "result_cells": [
+        "rate-plot"
+      ],
+      "interpretation_cells": [
+        "rate-plot"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Keep each traded club contribution at its correct grain, then pool counts before rates.",
+        "finding": "Naylor: Arizona 102/349 and Seattle 58/194 hits/at-bats. Team scope has four club rows across two players; season scope collapses them to two pooled rates using exposure weights. The experiment retains source values and career scope; no trade effect is inferred."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "pitching_team_splits"
+      },
+      "notebook": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sql": [
+        {
+          "cell": "fetch-sql",
+          "reference": "mlb.main.pitching_team_splits"
+        }
+      ],
+      "narrative_cells": [
+        "scope-question"
+      ],
+      "result_cells": [
+        "rate-plot"
+      ],
+      "interpretation_cells": [
+        "rate-plot"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Keep each traded club contribution at its correct grain, then pool counts before rates.",
+        "finding": "Duran: Minnesota 11/148 and Philadelphia 5/62 earned runs/outs. Team scope has four club rows across two players; season scope collapses them to two pooled rates using exposure weights. The experiment retains source values and career scope; no trade effect is inferred."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "batting_game_log"
+      },
+      "notebook": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sql": [
+        {
+          "cell": "fetch-sql",
+          "reference": "mlb.main.batting_game_log"
+        }
+      ],
+      "narrative_cells": [
+        "reconciliation-question"
+      ],
+      "result_cells": [
+        "exposure-plot"
+      ],
+      "interpretation_cells": [
+        "exposure-plot"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Independently reconcile game-level counts to team-season reports before rate comparisons.",
+        "finding": "Naylor: 147 games; team sums reconcile hits, at-bats, home runs and appearances. Stable team IDs and date spans remain visible; equal bars verify two source grains rather than doubling sample size. Pitching rates derive from counts, never a mean of reported game ERA."
+      }
+    },
+    {
+      "object": {
+        "schema": "main",
+        "name": "pitching_game_log"
+      },
+      "notebook": "03_keep_player_team_and_career_scopes_separate.ipynb",
+      "sql": [
+        {
+          "cell": "fetch-sql",
+          "reference": "mlb.main.pitching_game_log"
+        }
+      ],
+      "narrative_cells": [
+        "reconciliation-question"
+      ],
+      "result_cells": [
+        "exposure-plot"
+      ],
+      "interpretation_cells": [
+        "exposure-plot"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": "/root/notebooks_sympy",
+        "reviewed_at": "2026-11-15T01:40:57.546500+00:00",
+        "notebook_sha256": "335971e2fbc7f7b5149ba6a9d2bc58d23065349c1725ad6bd934d368a0c17fa3",
+        "catalog_sha256": [
+          "daf3829b9c89ab8462942d301b3852a23c88cccda661716f9b0edd0a65afb9a7",
+          "d1827bbb9ab1fdd788b78432a3fad9aaf1aa1a3bd4a6d496a64b8f2a6632a4fe"
+        ],
+        "purpose": "Independently reconcile game-level counts to team-season reports before rate comparisons.",
+        "finding": "Duran: 72 appearances; team sums reconcile integer outs, earned runs, strikeouts and appearances. Stable team IDs and date spans remain visible; equal bars verify two source grains rather than doubling sample size. Pitching rates derive from counts, never a mean of reported game ERA."
+      }
+    }
+  ]
+}
