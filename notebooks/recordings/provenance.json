@@ -1,0 +1,206 @@
+{
+  "source": "MLB public Stats API",
+  "kind": "Complete unchanged public JSON response bodies; independent bounded read requests",
+  "recording_date_utc": "2026-11-15",
+  "files": [
+    {
+      "scenario": "pitching",
+      "file": "pitching-seasonAdvanced-page-0.json",
+      "request_path": "/api/v1/stats",
+      "params": {
+        "stats": "seasonAdvanced",
+        "group": "pitching",
+        "playerPool": "ALL",
+        "sportIds": 1,
+        "hydrate": "person,team",
+        "limit": 1000,
+        "gameType": "R",
+        "season": 2025,
+        "offset": 0
+      },
+      "url": "https://statsapi.mlb.com/api/v1/stats?stats=seasonAdvanced&group=pitching&playerPool=ALL&sportIds=1&hydrate=person%2Cteam&limit=1000&gameType=R&season=2025&offset=0",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:14.506297+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:15.079380+00:00",
+      "sha256": "898b9133ccc5a81e6619fa9cefa4f92886b2530231d5843a8105680c3dfa1b57",
+      "bytes": 2734484,
+      "rows": 873,
+      "total_splits": 873,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "batting",
+      "file": "hitting-season-page-0.json",
+      "request_path": "/api/v1/stats",
+      "params": {
+        "stats": "season",
+        "group": "hitting",
+        "playerPool": "ALL",
+        "sportIds": 1,
+        "hydrate": "person,team",
+        "limit": 1000,
+        "gameType": "R",
+        "season": 2025,
+        "offset": 0
+      },
+      "url": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&playerPool=ALL&sportIds=1&hydrate=person%2Cteam&limit=1000&gameType=R&season=2025&offset=0",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:15.098356+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:15.559036+00:00",
+      "sha256": "f21f27a42f2c206d24fc8c7759c5b65f45c5dfff4287ad5fe8914195ff23d177",
+      "bytes": 1979819,
+      "rows": 765,
+      "total_splits": 765,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "batting",
+      "file": "hitting-seasonAdvanced-page-0.json",
+      "request_path": "/api/v1/stats",
+      "params": {
+        "stats": "seasonAdvanced",
+        "group": "hitting",
+        "playerPool": "ALL",
+        "sportIds": 1,
+        "hydrate": "person,team",
+        "limit": 1000,
+        "gameType": "R",
+        "season": 2025,
+        "offset": 0
+      },
+      "url": "https://statsapi.mlb.com/api/v1/stats?stats=seasonAdvanced&group=hitting&playerPool=ALL&sportIds=1&hydrate=person%2Cteam&limit=1000&gameType=R&season=2025&offset=0",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:15.578033+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:16.119256+00:00",
+      "sha256": "02562b6d0b1ad8ed101c9d7e221c39b1f79586d27e863672b405df4c06c91ed3",
+      "bytes": 1965863,
+      "rows": 765,
+      "total_splits": 765,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "trades",
+      "file": "naylor-career-page-0.json",
+      "request_path": "/api/v1/people/647304/stats",
+      "params": {
+        "stats": "career",
+        "group": "hitting",
+        "gameType": "R",
+        "hydrate": "team,opponent"
+      },
+      "url": "https://statsapi.mlb.com/api/v1/people/647304/stats?stats=career&group=hitting&gameType=R&hydrate=team%2Copponent",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:16.132766+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:16.351430+00:00",
+      "sha256": "0fea0bf442bcf05e809bdab19d26bf4b473870bd36d820a15cdb10febfda92e7",
+      "bytes": 1109,
+      "rows": 1,
+      "total_splits": 1,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "trades",
+      "file": "naylor-yearByYear-page-0.json",
+      "request_path": "/api/v1/people/647304/stats",
+      "params": {
+        "stats": "yearByYear",
+        "group": "hitting",
+        "gameType": "R",
+        "hydrate": "team,opponent",
+        "season": 2025
+      },
+      "url": "https://statsapi.mlb.com/api/v1/people/647304/stats?stats=yearByYear&group=hitting&gameType=R&hydrate=team%2Copponent&season=2025",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:16.352614+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:16.632588+00:00",
+      "sha256": "065eda5a5cacbc9af6f3ad03ddfa49394f933e05f37d5e60c02eba64ffde0354",
+      "bytes": 18412,
+      "rows": 12,
+      "total_splits": 12,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "trades",
+      "file": "naylor-gameLog-page-0.json",
+      "request_path": "/api/v1/people/647304/stats",
+      "params": {
+        "stats": "gameLog",
+        "group": "hitting",
+        "gameType": "R",
+        "hydrate": "team,opponent",
+        "season": 2025
+      },
+      "url": "https://statsapi.mlb.com/api/v1/people/647304/stats?stats=gameLog&group=hitting&gameType=R&hydrate=team%2Copponent&season=2025",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:16.633012+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:16.904675+00:00",
+      "sha256": "b69beae54192bfc625cda18ac592ed15b85993f8201594d8b9672ccfbfd339c4",
+      "bytes": 403383,
+      "rows": 147,
+      "total_splits": 147,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "trades",
+      "file": "duran-career-page-0.json",
+      "request_path": "/api/v1/people/661395/stats",
+      "params": {
+        "stats": "career",
+        "group": "pitching",
+        "gameType": "R",
+        "hydrate": "team,opponent"
+      },
+      "url": "https://statsapi.mlb.com/api/v1/people/661395/stats?stats=career&group=pitching&gameType=R&hydrate=team%2Copponent",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:16.907229+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:17.078678+00:00",
+      "sha256": "53405182753b090b21c034208443384bb0be469d007c6b94b0f0d1baec60b668",
+      "bytes": 1621,
+      "rows": 1,
+      "total_splits": 1,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "trades",
+      "file": "duran-yearByYear-page-0.json",
+      "request_path": "/api/v1/people/661395/stats",
+      "params": {
+        "stats": "yearByYear",
+        "group": "pitching",
+        "gameType": "R",
+        "hydrate": "team,opponent",
+        "season": 2025
+      },
+      "url": "https://statsapi.mlb.com/api/v1/people/661395/stats?stats=yearByYear&group=pitching&gameType=R&hydrate=team%2Copponent&season=2025",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:17.079121+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:17.306499+00:00",
+      "sha256": "251f45762c7d603ddd1c326f8a412477504c7a5cce0bc48fae0f2340a3887e39",
+      "bytes": 14584,
+      "rows": 7,
+      "total_splits": 7,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    },
+    {
+      "scenario": "trades",
+      "file": "duran-gameLog-page-0.json",
+      "request_path": "/api/v1/people/661395/stats",
+      "params": {
+        "stats": "gameLog",
+        "group": "pitching",
+        "gameType": "R",
+        "hydrate": "team,opponent",
+        "season": 2025
+      },
+      "url": "https://statsapi.mlb.com/api/v1/people/661395/stats?stats=gameLog&group=pitching&gameType=R&hydrate=team%2Copponent&season=2025",
+      "status": 200,
+      "retrieved_started_utc": "2026-11-15T01:29:17.306991+00:00",
+      "retrieved_finished_utc": "2026-11-15T01:29:17.567744+00:00",
+      "sha256": "5b1ea81576dd9d75404f6f737b82668771634341fc638189b8fe51213cfc76f2",
+      "bytes": 226860,
+      "rows": 72,
+      "total_splits": 72,
+      "cache_control": "max-age=300, public, stale-while-revalidate=30, stale-if-error=86400"
+    }
+  ]
+}
