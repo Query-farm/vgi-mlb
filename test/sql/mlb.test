@@ -1,0 +1,33 @@
+# name: test/sql/mlb.test
+# description: Hermetic end-to-end coverage: every current table, served from canned
+#   Stats API responses by test/mock_api/server.py (see ci/run-integration.sh).
+# group: [mlb]
+
+require vgi
+
+require-env VGI_MLB_WORKER
+
+require-env MLB_API_BASE_URL
+
+statement ok
+ATTACH 'mlb' (TYPE vgi, LOCATION '{VGI_MLB_WORKER}');
+
+query I
+SELECT count(*) FROM mlb.main.current_standings;
+----
+1
+
+query I
+SELECT count(*) FROM mlb.main.current_batting;
+----
+1
+
+query I
+SELECT count(*) FROM mlb.main.current_pitching;
+----
+1
+
+query I
+SELECT count(*) FROM mlb.main.current_fielding;
+----
+1

@@ -1,13 +1,14 @@
-"""Hermetic end-to-end coverage through Haybarn and the VGI transport."""
+"""Serve canned MLB Stats API responses over HTTP for the SQL tests.
+
+``ci/run-integration.sh`` starts this server, points ``MLB_API_BASE_URL`` at
+it, and runs ``test/sql`` through DuckDB, so the suite is hermetic. Prints
+``PORT:<n>`` once listening.
+"""
 
 from __future__ import annotations
 
 import json
-import os
-import subprocess
-import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 
@@ -92,38 +93,12 @@ class _MlbHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 
-def test_haybarn_attaches_and_queries_every_current_table() -> None:
+def main() -> None:
+    """Serve until killed."""
     server = ThreadingHTTPServer(("127.0.0.1", 0), _MlbHandler)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    project = Path(__file__).resolve().parent.parent
-    location = f"uv run --project {project} vgi-mlb"
-    sql = (
-        f"INSTALL vgi FROM community; LOAD vgi; ATTACH 'mlb' (TYPE vgi, LOCATION '{location}'); "
-        "SELECT "
-        "(SELECT count(*) FROM mlb.main.current_standings) AS standings, "
-        "(SELECT count(*) FROM mlb.main.current_batting) AS batting, "
-        "(SELECT count(*) FROM mlb.main.current_pitching) AS pitching, "
-        "(SELECT count(*) FROM mlb.main.current_fielding) AS fielding;"
-    )
-    env = {
-        **os.environ,
-        "MLB_API_BASE_URL": f"http://127.0.0.1:{server.server_port}/api/v1",
-    }
-    try:
-        result = subprocess.run(
-            ["uvx", "haybarn-cli", ":memory:", "-csv", "-c", sql],
-            cwd=project,
-            env=env,
-            check=True,
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-    finally:
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=5)
+    print(f"PORT:{server.server_port}", flush=True)
+    server.serve_forever()
 
-    assert "standings,batting,pitching,fielding" in result.stdout
-    assert "1,1,1,1" in result.stdout
+
+if __name__ == "__main__":
+    main()
