@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## 0.4.3 (2026-11-16)
+
+- Bump vgi-python to 0.52.2.
+
 ## [Unreleased]
 
 ## [0.4.2]
