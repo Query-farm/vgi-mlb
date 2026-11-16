@@ -76,7 +76,7 @@ def to_int(value: Any) -> int | None:
         return None
     try:
         return int(value)
-    except (TypeError, ValueError, OverflowError):
+    except TypeError, ValueError, OverflowError:
         return None
 
 
@@ -86,7 +86,7 @@ def to_decimal(value: Any) -> Decimal | None:
         return None
     try:
         result = Decimal(str(value))
-    except (InvalidOperation, ValueError):
+    except InvalidOperation, ValueError:
         return None
     return result if result.is_finite() else None
 
@@ -104,7 +104,7 @@ def to_timestamp(value: Any) -> datetime | None:
         return None
     try:
         result = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except (ValueError, OverflowError):
+    except ValueError, OverflowError:
         return None
     if result.tzinfo is None:
         result = result.replace(tzinfo=UTC)
